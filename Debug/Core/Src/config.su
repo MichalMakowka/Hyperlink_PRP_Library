@@ -1,0 +1,5 @@
+core_cm4.h:1816:22:__NVIC_SetPriority	16	static
+core_cm4.h:2022:26:SysTick_Config	16	static
+config.c:10:6:SystemCFG	8	static
+config.c:88:6:delay_ms	16	static
+config.c:111:33:SysTick_Handler	8	static
