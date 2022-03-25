@@ -53,8 +53,8 @@ all: main-build
 main-build: Hyperlink_PROP_Library.elf secondary-outputs
 
 # Tool invocations
-Hyperlink_PROP_Library.elf: $(OBJS) $(USER_OBJS) C:\Users\user\STM32CubeIDE\workspace_1.5.1\Hyperlink_PROP_Library\STM32F303R6TX_FLASH.ld
-	arm-none-eabi-gcc -o "Hyperlink_PROP_Library.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\user\STM32CubeIDE\workspace_1.5.1\Hyperlink_PROP_Library\STM32F303R6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Hyperlink_PROP_Library.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Hyperlink_PROP_Library.elf: $(OBJS) $(USER_OBJS) C:\Users\hp\STM32CubeIDE\workspace_1.3.0\Hyperlink_PROP_Library\STM32F303R6TX_FLASH.ld
+	arm-none-eabi-gcc -o "Hyperlink_PROP_Library.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\hp\STM32CubeIDE\workspace_1.3.0\Hyperlink_PROP_Library\STM32F303R6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Hyperlink_PROP_Library.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
