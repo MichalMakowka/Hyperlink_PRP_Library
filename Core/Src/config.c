@@ -9,23 +9,26 @@
 
 void SystemCFG (void) {
 
-	// RCC 64MHz Timer CLKs
 	/*
 	 * Timer Config Formula
 	 * (PSC+1)*(ARR+1) = TIMclk/Updatefrequency
 	 * =64 000 000 / 10 000Hz desired
 	 * PSC = 639 | ARR = 9
 	 */
-	RCC->CFGR |= RCC_CFGR_PLLMUL_0 | RCC_CFGR_PLLMUL_1 | RCC_CFGR_PLLMUL_2 | RCC_CFGR_PLLMUL_3;
+
+	// System CLK 36MHz
+	RCC->CFGR |= RCC_CFGR_PLLMUL9;
 	RCC->CFGR |= RCC_CFGR_PLLSRC_HSI_DIV2;
 	RCC->CFGR |= RCC_CFGR_PPRE2_DIV1;
-	RCC->CFGR |= RCC_CFGR_PPRE1_DIV2;
+	RCC->CFGR |= RCC_CFGR_PPRE1_DIV1;
+	RCC->CFGR |= RCC_CFGR_HPRE_DIV1;
 	RCC->CFGR |= RCC_CFGR_HPRE_DIV1;
 	RCC->CR |= RCC_CR_PLLON;
 	FLASH->ACR |= FLASH_ACR_LATENCY_1;
 	while (!(RCC->CR & RCC_CR_PLLRDY));
 	RCC->CFGR |= RCC_CFGR_SW_PLL;
 	while ( (RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL);
+
 
 /*	// Soft-PWM Timer and interrupt Config (LIM CHANNEL A)
 	RCC->APB2ENR |= RCC_APB2ENR_TIM15EN;
@@ -78,7 +81,12 @@ void SystemCFG (void) {
 	GPIOB->MODER &= ~(GPIO_MODER_MODER14_0 | GPIO_MODER_MODER14_1);		// Input
 	GPIOB->PUPDR |= GPIO_PUPDR_PUPDR14_0;	// Pull-Up
 
-	SysTick_Config(64000000/100000);
+	// CAN GPIO Pins
+	// CAN bus GPIO config
+	GPIOB->MODER |= GPIO_MODER_MODER8_1 | GPIO_MODER_MODER9_1;	// GPIO PB8 and PB9 Alternative Mode (CANbx)
+	GPIOB->AFR[1] |= (0b1001 << 0) | (0b1001 << 4);	// PB8 and PB9 AF set to CAN_Tx and CAN_Rx
+
+	SysTick_Config(3600000000/100000);
 	// Reset the SysTick counter value.
 	SysTick->VAL = 0UL;
 	// Set SysTick source and IRQ.
