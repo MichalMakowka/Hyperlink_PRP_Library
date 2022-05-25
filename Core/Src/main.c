@@ -6,7 +6,7 @@
  *  Created on: 31 Jan 2022
  *  Author: Michal Makowka
  *
- *  v1.0
+ *  v1.3
  *
  *  (C) All rights reserved.
  *
